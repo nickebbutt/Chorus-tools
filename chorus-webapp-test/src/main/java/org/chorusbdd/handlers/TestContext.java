@@ -1,7 +1,7 @@
 package org.chorusbdd.handlers;
 
 import jdk.nashorn.api.scripting.ScriptObjectMirror;
-import org.chorusbdd.chorus.core.interpreter.ChorusContext;
+import org.chorusbdd.chorus.context.ChorusContext;
 
 public class TestContext {
     private static final ChorusContext context = ChorusContext.getContext();

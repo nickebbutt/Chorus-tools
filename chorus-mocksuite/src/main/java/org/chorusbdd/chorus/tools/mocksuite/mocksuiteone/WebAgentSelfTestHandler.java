@@ -3,7 +3,7 @@ package org.chorusbdd.chorus.tools.mocksuite.mocksuiteone;
 import junit.framework.Assert;
 import org.chorusbdd.chorus.annotations.Handler;
 import org.chorusbdd.chorus.annotations.Step;
-import org.chorusbdd.chorus.core.interpreter.StepPendingException;
+import org.chorusbdd.chorus.stepinvoker.StepPendingException;
 
 /**
  * User: nick

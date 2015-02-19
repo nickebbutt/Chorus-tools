@@ -33,8 +33,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.chorusbdd.chorus.executionlistener.ExecutionListener;
 import org.chorusbdd.chorus.executionlistener.ExecutionListenerSupport;
-import org.chorusbdd.chorus.remoting.jmx.RemoteExecutionListener;
-import org.chorusbdd.chorus.remoting.jmx.RemoteExecutionListenerMBean;
+import org.chorusbdd.chorus.executionlistener.RemoteExecutionListener;
+import org.chorusbdd.chorus.executionlistener.RemoteExecutionListenerMBean;
 import org.chorusbdd.chorus.results.ExecutionToken;
 import org.chorusbdd.chorus.results.FeatureToken;
 import org.chorusbdd.chorus.results.ScenarioToken;
@@ -115,10 +115,6 @@ public class WebAgentSuiteListener implements ExecutionListener {
         executionListenerSupport.removeExecutionListeners(listeners);
     }
 
-    public void setExecutionListener(ExecutionListener... listener) {
-        executionListenerSupport.setExecutionListener(listener);
-    }
-
     public List<ExecutionListener> getListeners() {
         return executionListenerSupport.getListeners();
     }
@@ -126,10 +122,10 @@ public class WebAgentSuiteListener implements ExecutionListener {
     //////////////// Implement ExecutionListener to forward received events via event propagation thread
 
     @Override
-    public void testsStarted(final ExecutionToken testExecutionToken) {
+    public void testsStarted(final ExecutionToken testExecutionToken, final List<FeatureToken> features) {
         eventPropagator.execute(new Runnable() {
             public void run() {
-                executionListenerSupport.notifyStartTests(testExecutionToken);
+                executionListenerSupport.notifyStartTests(testExecutionToken, features);
             }
         });
     }

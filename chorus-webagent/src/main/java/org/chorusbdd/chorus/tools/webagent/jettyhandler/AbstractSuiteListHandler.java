@@ -30,20 +30,15 @@
 package org.chorusbdd.chorus.tools.webagent.jettyhandler;
 
 import org.chorusbdd.chorus.tools.webagent.filter.FilterFactory;
-import org.chorusbdd.chorus.tools.webagent.filter.SuiteEndStateFilter;
-import org.chorusbdd.chorus.tools.webagent.filter.SuiteNameFilter;
 import org.chorusbdd.chorus.tools.webagent.filter.TestSuiteFilter;
 import org.chorusbdd.chorus.tools.webagent.WebAgentFeatureCache;
 import org.chorusbdd.chorus.tools.webagent.WebAgentTestSuite;
 import org.chorusbdd.chorus.tools.webagent.util.WebAgentUtil;
-import org.chorusbdd.chorus.util.NetworkUtils;
 import org.eclipse.jetty.server.Request;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.stream.XMLStreamWriter;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.List;
 
 /**

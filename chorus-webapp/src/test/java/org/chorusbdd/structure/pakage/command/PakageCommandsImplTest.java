@@ -76,17 +76,18 @@ public class PakageCommandsImplTest {
     }
 
     @Test
-    public void movesDestinationPackageAndPakageWhenTargetExistsAndDestinationDoesNotExist() {
+    public void movesDestinationPackageWhenTargetExistsAndDestinationDoesNotExist() {
         // prepare
         when(dao.pakageExists("tar.get.id")).thenReturn(true);
         when(dao.pakageExists("de.st.id")).thenReturn(false);
+        when(dao.parent("de.st.id")).thenReturn("de.st");
 
         // run
         newPakageCommandsImpl().apply(mockMoveEvent("tar.get.id", "de.st.id"));
 
         // verify
         InOrder inorder = inOrder(dao);
-        inorder.verify(dao).writePakage("de.st.id");
+        inorder.verify(dao).writePakage("de.st");
         inorder.verify(dao).movePakage("tar.get.id", "de.st.id");
     }
 
