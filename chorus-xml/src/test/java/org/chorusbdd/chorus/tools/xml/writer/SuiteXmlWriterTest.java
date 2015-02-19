@@ -1,7 +1,6 @@
 package org.chorusbdd.chorus.tools.xml.writer;
 
 import org.chorusbdd.chorus.Chorus;
-import org.chorusbdd.chorus.executionlistener.ExecutionListener;
 import org.chorusbdd.chorus.results.*;
 import org.chorusbdd.chorus.tools.xml.util.FileUtils;
 import org.custommonkey.xmlunit.Diff;
@@ -10,7 +9,6 @@ import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Test;
 import java.io.*;
 import java.net.URL;
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -124,12 +122,10 @@ public class SuiteXmlWriterTest extends XMLTestCase {
     private TestSuite runInterpreter() throws Exception {
         String baseDir = findProjectBaseDir();
         String featureDirPath = FileUtils.getFilePath(baseDir, "chorus-mocksuite", "src", "main", "java", "org", "chorusbdd", "chorus", "tools", "mocksuite", "mocksuiteone");
-        Chorus chorus = new Chorus(new String[] {"-f", featureDirPath, "-h", "org.chorusbdd.chorus.tools.mocksuite.mocksuiteone","-l", "debug"});
-        MockExecutionListener l = new MockExecutionListener();
-        chorus.addExecutionListener(l);
+        Chorus chorus = new Chorus(new String[] {"-f", featureDirPath, "-h", "org.chorusbdd.chorus.tools.mocksuite.mocksuiteone","-l", "info", "-x", "org.chorusbdd.chorus.tools.xml.writer.MockExecutionListener"});
         chorus.run();
-        assertTrue("Chorus interpreter found some features", l.testExecutionToken.getTotalFeatures() > 0);
-        return new TestSuite(l.testExecutionToken, l.featureTokens);
+        assertTrue("Chorus interpreter found some features", MockExecutionListener.testExecutionToken.getTotalFeatures() > 0);
+        return new TestSuite(MockExecutionListener.testExecutionToken, MockExecutionListener.featureTokens);
     }
 
     private String findProjectBaseDir() {
@@ -145,37 +141,4 @@ public class SuiteXmlWriterTest extends XMLTestCase {
         return result;
     }
 
-    private static class MockExecutionListener implements ExecutionListener {
-
-        ExecutionToken testExecutionToken;
-        List<FeatureToken> featureTokens;
-
-        public void testsStarted(ExecutionToken testExecutionToken) {
-        }
-
-        public void testsCompleted(ExecutionToken testExecutionToken, List<FeatureToken> features) {
-            this.testExecutionToken = testExecutionToken;
-            this.featureTokens = features;
-        }
-
-        public void featureStarted(ExecutionToken testExecutionToken, FeatureToken feature) {
-        }
-
-        public void featureCompleted(ExecutionToken testExecutionToken, FeatureToken feature) {
-        }
-
-        public void scenarioStarted(ExecutionToken testExecutionToken, ScenarioToken scenario) {
-        }
-
-        public void scenarioCompleted(ExecutionToken testExecutionToken, ScenarioToken scenario) {
-        }
-
-        public void stepStarted(ExecutionToken testExecutionToken, StepToken step) {
-        }
-
-        public void stepCompleted(ExecutionToken testExecutionToken, StepToken step) {
-        }
-
-
-    }
 }
